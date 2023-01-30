@@ -11,6 +11,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Component(s).
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.register(CarouselCell.self, forCellReuseIdentifier: CarouselCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -58,4 +59,3 @@ private extension HomeViewController {
         view.backgroundColor = .white
     }
 }
-
