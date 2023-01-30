@@ -38,5 +38,7 @@ private extension CharacterCard {
     
     private func configureView() {
         contentView.backgroundColor = .red
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 8
     }
 }
