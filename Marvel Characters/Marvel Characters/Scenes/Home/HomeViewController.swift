@@ -11,7 +11,9 @@ final class HomeViewController: UIViewController {
     // MARK: - Component(s).
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.dataSource = self
         tableView.register(CarouselCell.self, forCellReuseIdentifier: CarouselCell.identifier)
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -57,5 +59,16 @@ private extension HomeViewController {
     private func configureView() {
         title = "Characters"
         view.backgroundColor = .white
+    }
+}
+
+// MARK: - TableView Data Source.
+extension HomeViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        tableView.dequeueReusableCell(withIdentifier: CarouselCell.identifier, for: indexPath)
     }
 }

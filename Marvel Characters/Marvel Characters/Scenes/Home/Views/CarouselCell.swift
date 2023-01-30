@@ -23,15 +23,21 @@ final class CarouselCell: UITableViewCell {
     static let identifier = "\(CarouselCell.self)"
     
     // MARK: - Component(s).
-    private lazy var collectioView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView()
         collectionView.dataSource = self
+        collectionView.register(CharacterCard.self, forCellWithReuseIdentifier: CharacterCard.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = Layout.Size.itemSize
-        layout.sectionInset = UIEdgeInsets(top: 0, left: Layout.Spacing.minimumLineSpacing, bottom: 0, right: Layout.Spacing.minimumLineSpacing)
+        layout.sectionInset = UIEdgeInsets(
+            top: 0,
+            left: Layout.Spacing.minimumLineSpacing,
+            bottom: 0,
+            right: Layout.Spacing.minimumLineSpacing
+        )
         layout.minimumLineSpacing = Layout.Spacing.minimumLineSpacing
         layout.minimumInteritemSpacing = 0
         collectionView.setCollectionViewLayout(layout, animated: true)
@@ -61,31 +67,31 @@ final class CarouselCell: UITableViewCell {
 // MARK: - View Configuration.
 private extension CarouselCell {
     private func buildViewHierarchy() {
-        contentView.addSubview(collectioView)
+        contentView.addSubview(collectionView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectioView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectioView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectioView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectioView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectioView.heightAnchor.constraint(equalToConstant: Layout.Size.itemSize.height)
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
     
     private func configureView() {
         contentView.backgroundColor = .white
+        selectionStyle = .none
     }
 }
 
-// MARK: - Collection Data Source.
+// MARK: - CollectionView Data Source.
 extension CarouselCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         8
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
+        collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCard.identifier, for: indexPath)
     }
 }
