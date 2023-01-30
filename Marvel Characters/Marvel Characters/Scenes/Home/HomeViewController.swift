@@ -31,7 +31,11 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Setup(s).
     private func setupNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.standardAppearance = appearance
     }
     
     private func setupLayout() {

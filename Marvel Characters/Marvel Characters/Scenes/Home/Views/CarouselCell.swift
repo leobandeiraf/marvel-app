@@ -23,25 +23,27 @@ final class CarouselCell: UITableViewCell {
     static let identifier = "\(CarouselCell.self)"
     
     // MARK: - Component(s).
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView()
-        collectionView.dataSource = self
-        collectionView.register(CharacterCard.self, forCellWithReuseIdentifier: CharacterCard.identifier)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
+    private lazy var collectionLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
         layout.itemSize = Layout.Size.itemSize
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = Layout.Spacing.minimumLineSpacing
+        layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(
             top: 0,
             left: Layout.Spacing.minimumLineSpacing,
             bottom: 0,
             right: Layout.Spacing.minimumLineSpacing
         )
-        layout.minimumLineSpacing = Layout.Spacing.minimumLineSpacing
-        layout.minimumInteritemSpacing = 0
-        collectionView.setCollectionViewLayout(layout, animated: true)
-        
+        return layout
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionLayout)
+        collectionView.dataSource = self
+        collectionView.register(CharacterCard.self, forCellWithReuseIdentifier: CharacterCard.identifier)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
@@ -75,7 +77,8 @@ private extension CarouselCell {
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: Layout.Size.itemSize.height)
         ])
     }
     
