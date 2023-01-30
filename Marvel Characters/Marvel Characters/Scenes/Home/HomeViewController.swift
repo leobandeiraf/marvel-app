@@ -8,6 +8,13 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
+    // MARK: - Component(s).
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     // MARK: - Override(s).
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,14 +41,21 @@ final class HomeViewController: UIViewController {
 // MARK: - View Configuration.
 private extension HomeViewController {
     private func buildViewHierarchy() {
-        
+        view.addSubview(tableView)
     }
     
     private func setupConstraints() {
-        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
     }
     
     private func configureView() {
         title = "Characters"
+        view.backgroundColor = .white
     }
 }
+
