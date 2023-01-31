@@ -10,7 +10,8 @@ import UIKit
 
 fileprivate extension CarouselCell.Layout {
     enum Size {
-        static let itemSize: CGSize = CGSize(width: 170, height: 290)
+        static let cardSize: CGSize = CGSize(width: 170, height: 290)
+        static let itemHeight: CGFloat = cardSize.height + 32
     }
     
     enum Spacing {
@@ -30,7 +31,7 @@ final class CarouselCell: UITableViewCell {
     // MARK: - Component(s).
     private lazy var collectionLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = Layout.Size.itemSize
+        layout.itemSize = Layout.Size.cardSize
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = Layout.Spacing.minimumLineSpacing
         layout.scrollDirection = .horizontal
@@ -89,7 +90,7 @@ private extension CarouselCell {
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: Layout.Size.itemSize.height + Layout.Spacing.minimumLineSpacing)
+            collectionView.heightAnchor.constraint(equalToConstant: Layout.Size.itemHeight)
         ])
     }
     

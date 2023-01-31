@@ -63,5 +63,17 @@ private extension CharacterCard {
         contentView.backgroundColor = .white
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 8
+        
+        let shadowLayer = CAShapeLayer.init()
+        shadowLayer.path = UIBezierPath.init(roundedRect: bounds, cornerRadius: 8).cgPath
+        shadowLayer.fillColor = UIColor.clear.cgColor
+        
+        shadowLayer.shadowPath = shadowLayer.path
+        shadowLayer.shadowColor = UIColor.black.cgColor
+        shadowLayer.shadowRadius = CGFloat(4.0)
+        shadowLayer.shadowOpacity = Float(0.2)
+        shadowLayer.shadowOffset = CGSize(width: 6, height: 12.0)
+        
+        self.layer.insertSublayer(shadowLayer, at: 0)
     }
 }
