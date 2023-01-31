@@ -10,7 +10,7 @@ import UIKit
 
 fileprivate extension CarouselCell.Layout {
     enum Size {
-        static let itemSize: CGSize = CGSize(width: 134, height: 176)
+        static let itemSize: CGSize = CGSize(width: 170, height: 290)
     }
     
     enum Spacing {
@@ -89,7 +89,7 @@ private extension CarouselCell {
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: Layout.Size.itemSize.height)
+            collectionView.heightAnchor.constraint(equalToConstant: Layout.Size.itemSize.height + Layout.Spacing.minimumLineSpacing)
         ])
     }
     
