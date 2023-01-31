@@ -14,6 +14,6 @@ struct Character: Decodable {
     
     struct CharacterImage: Decodable {
         let path: String?
-        let url: String?
+        let `extension`: String?
     }
 }

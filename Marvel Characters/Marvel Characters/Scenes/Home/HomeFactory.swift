@@ -11,7 +11,10 @@ final class HomeFactory {
     static func make() -> HomeViewController {
         let service = HomeService()
         let viewModel = HomeViewModel(service: service)
+        let viewController = HomeViewController(viewModel: viewModel)
         
-        return HomeViewController(viewModel: viewModel)
+        viewModel.viewController = viewController
+        
+        return viewController
     }
 }

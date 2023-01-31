@@ -5,6 +5,7 @@
 //  Created by Leonardo Bandeira on 30/01/23.
 //
 
+import SDWebImage
 import UIKit
 
 fileprivate extension CarouselCell.Layout {
@@ -21,6 +22,10 @@ final class CarouselCell: UITableViewCell {
     // MARK: - Propery(ies).
     enum Layout {}
     static let identifier = "\(CarouselCell.self)"
+    
+    private var characters = [Character]() {
+        didSet { collectionView.reloadData() }
+    }
     
     // MARK: - Component(s).
     private lazy var collectionLayout: UICollectionViewFlowLayout = {
@@ -58,6 +63,12 @@ final class CarouselCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Method(s).
+    func configure(with characters: [Character]) -> Self {
+        self.characters = characters
+        return self
+    }
+    
     // MARK: - Setup(s).
     private func setupLayout() {
         buildViewHierarchy()
@@ -91,10 +102,15 @@ private extension CarouselCell {
 // MARK: - CollectionView Data Source.
 extension CarouselCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        8
+        characters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCard.identifier, for: indexPath)
+        guard let image = characters[indexPath.item].thumbnail,
+              let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CharacterCard.identifier,
+                for: indexPath
+              ) as? CharacterCard else { return UICollectionViewCell() }
+        return cell.configure(with: image)
     }
 }

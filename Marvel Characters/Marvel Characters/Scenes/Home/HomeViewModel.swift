@@ -13,8 +13,8 @@ protocol HomeViewModeling: AnyObject {
 
 final class HomeViewModel: HomeViewModeling {
     // MARK: Property(ies).
-    let service: HomeServicing
-    var characters = [Character]()
+    private let service: HomeServicing
+    weak var viewController: HomeDisplaying?
     
     // MARK: - Initialization(s).
     init(service: HomeServicing) {
@@ -26,9 +26,9 @@ final class HomeViewModel: HomeViewModeling {
         service.getCharacters { [weak self] result in
             switch result {
             case let .success(model):
-                self?.characters = model
-            case .failure:
-                break
+                self?.viewController?.displayCharacters(with: model)
+            case let .failure(error):
+                print(error)
             }
         }
     }

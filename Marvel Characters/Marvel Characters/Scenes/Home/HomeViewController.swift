@@ -7,9 +7,17 @@
 
 import UIKit
 
+protocol HomeDisplaying: AnyObject {
+    func displayCharacters(with model: [Character]?)
+}
+
 final class HomeViewController: UIViewController {
     // MARK: - Property(ies).
     private let viewModel: HomeViewModeling
+    
+    private var characters = [Character]() {
+        didSet { tableView.reloadData() }
+    }
     
     // MARK: - Component(s).
     private lazy var tableView: UITableView = {
@@ -35,6 +43,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Override(s).
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.getCharacters()
         setupLayout()
     }
     
@@ -80,6 +89,14 @@ private extension HomeViewController {
     }
 }
 
+// MARK: - Displaying Method(s).
+extension HomeViewController: HomeDisplaying {
+    func displayCharacters(with model: [Character]?) {
+        guard let model = model else { return }
+        characters = model
+    }
+}
+
 // MARK: - TableView Data Source.
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,6 +104,10 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.dequeueReusableCell(withIdentifier: CarouselCell.identifier, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: CarouselCell.identifier,
+                for: indexPath
+              ) as? CarouselCell else { return UITableViewCell() }
+        return cell.configure(with: characters)
     }
 }

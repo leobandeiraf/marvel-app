@@ -8,5 +8,5 @@
 import Foundation
 
 struct CharacterWrapperModel: Decodable {
-    let data: CharacterDataModel
+    let data: CharacterDataModel?
 }
