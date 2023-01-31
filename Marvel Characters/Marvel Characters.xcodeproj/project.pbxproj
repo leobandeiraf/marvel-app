@@ -25,6 +25,7 @@
 		A0C026DA2989480700DB5130 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C026D92989480700DB5130 /* Date+Extensions.swift */; };
 		A0C026DC2989481600DB5130 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C026DB2989481600DB5130 /* String+Extensions.swift */; };
 		A0C026DF2989599A00DB5130 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = A0C026DE2989599A00DB5130 /* SkeletonView */; };
+		A0C026E129897FF400DB5130 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C026E029897FF400DB5130 /* SectionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		A0C026D52989475C00DB5130 /* MarvelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelAPI.swift; sourceTree = "<group>"; };
 		A0C026D92989480700DB5130 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		A0C026DB2989481600DB5130 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		A0C026E029897FF400DB5130 /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				A0C025242988916D00DB5130 /* CharacterDataModel.swift */,
 				A0C025262988919F00DB5130 /* CharacterModel.swift */,
 				A0C02528298891E600DB5130 /* CharacterWrapperModel.swift */,
+				A0C026E029897FF400DB5130 /* SectionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				A0C025272988919F00DB5130 /* CharacterModel.swift in Sources */,
 				A0206E4A2988769C006EED95 /* AppDelegate.swift in Sources */,
 				A0C0251B29888BFB00DB5130 /* HomeFactory.swift in Sources */,
+				A0C026E129897FF400DB5130 /* SectionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

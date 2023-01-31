@@ -9,7 +9,7 @@ import SkeletonView
 import UIKit
 
 protocol HomeDisplaying: AnyObject {
-    func displayCharacters(with model: [Character]?)
+    func displayCharacters(with model: [SectionModel])
     func displayLoading(_ bool: Bool)
 }
 
@@ -17,7 +17,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Property(ies).
     private let viewModel: HomeViewModeling
     
-    private var characters = [Character]() {
+    private var sections = [SectionModel]() {
         didSet { tableView.reloadData() }
     }
     
@@ -94,9 +94,8 @@ private extension HomeViewController {
 
 // MARK: - Displaying Method(s).
 extension HomeViewController: HomeDisplaying {
-    func displayCharacters(with model: [Character]?) {
-        guard let model = model else { return }
-        characters = model
+    func displayCharacters(with model: [SectionModel]) {
+        sections = model
     }
     
     func displayLoading(_ bool: Bool) {
@@ -107,22 +106,28 @@ extension HomeViewController: HomeDisplaying {
 // MARK: - TableView DataSource.
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        sections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
+        switch sections[indexPath.row].section {
+        case .carousel:
+            guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: CarouselCell.identifier,
                 for: indexPath
-              ) as? CarouselCell else { return UITableViewCell() }
-        return cell.configure(with: characters)
+            ) as? CarouselCell,
+                  let characters = sections[indexPath.row].characters else { return UITableViewCell() }
+            return cell.configure(with: characters)
+        case .list:
+            return UITableViewCell()
+        }
     }
 }
 
 // MARK: - SkeletonView DataSource.
 extension HomeViewController: SkeletonTableViewDataSource {
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        2
     }
     
     func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
