@@ -23,7 +23,9 @@ final class HomeViewModel: HomeViewModeling {
     
     // MARK: - Method(s).
     func getCharacters() {
+        performLoading(true)
         service.getCharacters { [weak self] result in
+            self?.performLoading(false)
             switch result {
             case let .success(model):
                 self?.viewController?.displayCharacters(with: model)
@@ -31,5 +33,9 @@ final class HomeViewModel: HomeViewModeling {
                 print(error)
             }
         }
+    }
+    
+    func performLoading(_ bool: Bool) {
+        viewController?.displayLoading(bool)
     }
 }

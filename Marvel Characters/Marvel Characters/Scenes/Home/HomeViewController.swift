@@ -9,6 +9,7 @@ import UIKit
 
 protocol HomeDisplaying: AnyObject {
     func displayCharacters(with model: [Character]?)
+    func displayLoading(_ bool: Bool)
 }
 
 final class HomeViewController: UIViewController {
@@ -94,6 +95,10 @@ extension HomeViewController: HomeDisplaying {
     func displayCharacters(with model: [Character]?) {
         guard let model = model else { return }
         characters = model
+    }
+    
+    func displayLoading(_ bool: Bool) {
+        
     }
 }
 

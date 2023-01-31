@@ -24,6 +24,7 @@
 		A0C026D62989475C00DB5130 /* MarvelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C026D52989475C00DB5130 /* MarvelAPI.swift */; };
 		A0C026DA2989480700DB5130 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C026D92989480700DB5130 /* Date+Extensions.swift */; };
 		A0C026DC2989481600DB5130 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C026DB2989481600DB5130 /* String+Extensions.swift */; };
+		A0C026DF2989599A00DB5130 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = A0C026DE2989599A00DB5130 /* SkeletonView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0C026D429892E7E00DB5130 /* SDWebImage in Frameworks */,
+				A0C026DF2989599A00DB5130 /* SkeletonView in Frameworks */,
 				A0C025222988901900DB5130 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -224,6 +226,7 @@
 			packageProductDependencies = (
 				A0C025212988901900DB5130 /* Alamofire */,
 				A0C026D329892E7E00DB5130 /* SDWebImage */,
+				A0C026DE2989599A00DB5130 /* SkeletonView */,
 			);
 			productName = "Marvel Characters";
 			productReference = A0206E462988769C006EED95 /* Marvel Characters.app */;
@@ -300,6 +303,7 @@
 			packageReferences = (
 				A0C025202988901900DB5130 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				A0C026D229892E7E00DB5130 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				A0C026DD2989599A00DB5130 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = A0206E472988769C006EED95 /* Products */;
 			projectDirPath = "";
@@ -702,6 +706,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		A0C026DD2989599A00DB5130 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -714,6 +726,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A0C026D229892E7E00DB5130 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		A0C026DE2989599A00DB5130 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0C026DD2989599A00DB5130 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
