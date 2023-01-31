@@ -8,6 +8,9 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
+    // MARK: - Property(ies).
+    private let viewModel: HomeViewModeling
+    
     // MARK: - Component(s).
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -17,6 +20,17 @@ final class HomeViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    // MARK: - Initialization(s).
+    init(viewModel: HomeViewModeling) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Override(s).
     override func viewDidLoad() {
