@@ -42,6 +42,16 @@ final class CharacterListCell: UITableViewCell {
         return image
     }()
     
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 28, weight: .bold)
+        label.isSkeletonable = true
+        label.textAlignment = .right
+        label.textColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     // MARK: - Initialization(s).
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -54,8 +64,9 @@ final class CharacterListCell: UITableViewCell {
     }
     
     // MARK: - Method(s).
-    func configure(with image: Character.CharacterImage) -> Self {
-        characterImageView.sd_setImage(with: image.url)
+    func configure(with character: Character) -> Self {
+        label.text = character.name
+        characterImageView.sd_setImage(with: character.thumbnail?.url)
         return self
     }
     
@@ -72,6 +83,7 @@ private extension CharacterListCell {
     private func buildViewHierarchy() {
         contentView.addSubview(container)
         container.addSubview(characterImageView)
+        characterImageView.addSubview(label)
     }
     
     private func setupConstraints() {
@@ -84,7 +96,11 @@ private extension CharacterListCell {
             container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.Spacing.horizontalInset),
             
             characterImageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            characterImageView.centerYAnchor.constraint(equalTo: container.centerYAnchor)
+            characterImageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            
+            label.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Layout.Spacing.horizontalInset),
+            label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Layout.Spacing.horizontalInset)
         ])
     }
     
@@ -98,8 +114,8 @@ private extension CharacterListCell {
         
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowColor = UIColor.black.cgColor
-        shadowLayer.shadowRadius = CGFloat(8)
-        shadowLayer.shadowOpacity = Float(0.21)
+        shadowLayer.shadowRadius = CGFloat(6)
+        shadowLayer.shadowOpacity = Float(0.20)
         shadowLayer.shadowOffset = CGSize(width: 54, height: 54)
         
         contentView.layer.insertSublayer(shadowLayer, at: 0)

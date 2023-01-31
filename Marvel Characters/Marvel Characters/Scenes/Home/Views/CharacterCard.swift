@@ -8,8 +8,15 @@
 import SkeletonView
 import UIKit
 
+fileprivate extension CharacterCard.Layout {
+    enum Spacing {
+        static let inset: CGFloat = 16
+    }
+}
+
 final class CharacterCard: UICollectionViewCell {
     // MARK: - Propery(ies).
+    enum Layout {}
     static let identifier = "\(CharacterCard.self)"
     
     // MARK: - Component(s).
@@ -19,6 +26,14 @@ final class CharacterCard: UICollectionViewCell {
         image.isSkeletonable = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
+    }()
+    
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 28, weight: .bold)
+        label.textColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     // MARK: - Initialization(s).
@@ -33,8 +48,9 @@ final class CharacterCard: UICollectionViewCell {
     }
     
     // MARK: - Method(s).
-    func configure(with image: Character.CharacterImage) -> Self {
-        imageView.sd_setImage(with: image.url)
+    func configure(with character: Character) -> Self {
+        label.text = character.name
+        imageView.sd_setImage(with: character.thumbnail?.url)
         return self
     }
     
@@ -50,6 +66,7 @@ final class CharacterCard: UICollectionViewCell {
 private extension CharacterCard {
     private func buildViewHierarchy() {
         contentView.addSubview(imageView)
+        contentView.addSubview(label)
     }
     
     private func setupConstraints() {
@@ -57,7 +74,11 @@ private extension CharacterCard {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.Spacing.inset),
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Layout.Spacing.inset),
+            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.Spacing.inset)
         ])
     }
     

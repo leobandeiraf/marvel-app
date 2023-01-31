@@ -128,8 +128,8 @@ extension HomeViewController: UITableViewDataSource {
                 withIdentifier: CharacterListCell.identifier,
                 for: indexPath
             ) as? CharacterListCell,
-                  let thumbnail = sections[indexPath.section].characters?[indexPath.row].thumbnail else { return UITableViewCell() }
-            return cell.configure(with: thumbnail)
+                  let character = sections[indexPath.section].characters?[indexPath.row] else { return UITableViewCell() }
+            return cell.configure(with: character)
         }
     }
 }

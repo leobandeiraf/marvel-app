@@ -110,12 +110,11 @@ extension CarouselCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let image = characters[indexPath.item].thumbnail,
-              let cell = collectionView.dequeueReusableCell(
+        guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CharacterCard.identifier,
                 for: indexPath
               ) as? CharacterCard else { return UICollectionViewCell() }
-        return cell.configure(with: image)
+        return cell.configure(with: characters[indexPath.item])
     }
 }
 
