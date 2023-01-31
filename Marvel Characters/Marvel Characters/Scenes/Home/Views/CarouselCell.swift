@@ -6,6 +6,7 @@
 //
 
 import SDWebImage
+import SkeletonView
 import UIKit
 
 fileprivate extension CarouselCell.Layout {
@@ -47,6 +48,7 @@ final class CarouselCell: UITableViewCell {
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionLayout)
         collectionView.dataSource = self
+        collectionView.isSkeletonable = true
         collectionView.register(CharacterCard.self, forCellWithReuseIdentifier: CharacterCard.identifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,12 +97,13 @@ private extension CarouselCell {
     }
     
     private func configureView() {
+        isSkeletonable = true
         contentView.backgroundColor = .white
         selectionStyle = .none
     }
 }
 
-// MARK: - CollectionView Data Source.
+// MARK: - CollectionView DataSource.
 extension CarouselCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         characters.count
@@ -113,5 +116,16 @@ extension CarouselCell: UICollectionViewDataSource {
                 for: indexPath
               ) as? CharacterCard else { return UICollectionViewCell() }
         return cell.configure(with: image)
+    }
+}
+
+// MARK: - SkeletonView DataSource.
+extension CarouselCell: SkeletonCollectionViewDataSource {
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        5
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        CharacterCard.identifier
     }
 }

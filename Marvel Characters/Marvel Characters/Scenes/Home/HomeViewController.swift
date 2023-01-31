@@ -5,6 +5,7 @@
 //  Created by Leonardo Bandeira on 30/01/23.
 //
 
+import SkeletonView
 import UIKit
 
 protocol HomeDisplaying: AnyObject {
@@ -24,6 +25,7 @@ final class HomeViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
+        tableView.isSkeletonable = true
         tableView.register(CarouselCell.self, forCellReuseIdentifier: CarouselCell.identifier)
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -98,11 +100,11 @@ extension HomeViewController: HomeDisplaying {
     }
     
     func displayLoading(_ bool: Bool) {
-        
+        bool ? tableView.showAnimatedGradientSkeleton() : tableView.hideSkeleton()
     }
 }
 
-// MARK: - TableView Data Source.
+// MARK: - TableView DataSource.
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
@@ -114,5 +116,16 @@ extension HomeViewController: UITableViewDataSource {
                 for: indexPath
               ) as? CarouselCell else { return UITableViewCell() }
         return cell.configure(with: characters)
+    }
+}
+
+// MARK: - SkeletonView DataSource.
+extension HomeViewController: SkeletonTableViewDataSource {
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        CarouselCell.identifier
     }
 }

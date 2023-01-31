@@ -5,6 +5,7 @@
 //  Created by Leonardo Bandeira on 30/01/23.
 //
 
+import SkeletonView
 import UIKit
 
 final class CharacterCard: UICollectionViewCell {
@@ -15,6 +16,7 @@ final class CharacterCard: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
+        image.isSkeletonable = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -60,6 +62,7 @@ private extension CharacterCard {
     }
     
     private func configureView() {
+        isSkeletonable = true
         contentView.backgroundColor = .white
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 8
