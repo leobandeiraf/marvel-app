@@ -31,8 +31,7 @@ final class CharacterCard: UICollectionViewCell {
     
     // MARK: - Method(s).
     func configure(with image: Character.CharacterImage) -> Self {
-        guard let path = image.path, let pathUrl = image.extension, let url = URL(string: "\(path).\(pathUrl)") else { return self }
-        imageView.sd_setImage(with: url)
+        imageView.sd_setImage(with: image.url)
         return self
     }
     

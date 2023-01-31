@@ -15,5 +15,10 @@ struct Character: Decodable {
     struct CharacterImage: Decodable {
         let path: String?
         let `extension`: String?
+        
+        var url: URL? {
+            let httpsPath = path?.replacingOccurrences(of: "http", with: "https") ?? String()
+            return URL(string: "\(httpsPath).\(`extension` ?? String())")
+        }
     }
 }
