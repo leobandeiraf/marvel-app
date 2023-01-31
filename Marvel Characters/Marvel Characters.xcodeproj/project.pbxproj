@@ -26,6 +26,7 @@
 		A0C026DC2989481600DB5130 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C026DB2989481600DB5130 /* String+Extensions.swift */; };
 		A0C026DF2989599A00DB5130 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = A0C026DE2989599A00DB5130 /* SkeletonView */; };
 		A0C026E129897FF400DB5130 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C026E029897FF400DB5130 /* SectionModel.swift */; };
+		A0C026E3298992C300DB5130 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C026E2298992C200DB5130 /* CharacterListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		A0C026D92989480700DB5130 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		A0C026DB2989481600DB5130 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		A0C026E029897FF400DB5130 /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
+		A0C026E2298992C200DB5130 /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 			children = (
 				A0C0251429887FC400DB5130 /* CarouselCell.swift */,
 				A0C02516298885D700DB5130 /* CharacterCard.swift */,
+				A0C026E2298992C200DB5130 /* CharacterListCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				A0C0251929888B7F00DB5130 /* HomeViewModel.swift in Sources */,
 				A0C025272988919F00DB5130 /* CharacterModel.swift in Sources */,
 				A0206E4A2988769C006EED95 /* AppDelegate.swift in Sources */,
+				A0C026E3298992C300DB5130 /* CharacterListCell.swift in Sources */,
 				A0C0251B29888BFB00DB5130 /* HomeFactory.swift in Sources */,
 				A0C026E129897FF400DB5130 /* SectionModel.swift in Sources */,
 			);

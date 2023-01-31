@@ -12,7 +12,12 @@ struct SectionModel {
     let characters: [Character]?
     
     var numberOfRows: Int {
-        characters?.count ?? 0
+        switch section {
+        case .carousel:
+            return 1
+        case .list:
+            return characters?.count ?? 0
+        }
     }
     
     enum Section {

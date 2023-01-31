@@ -27,6 +27,7 @@ final class HomeViewController: UIViewController {
         tableView.dataSource = self
         tableView.isSkeletonable = true
         tableView.register(CarouselCell.self, forCellReuseIdentifier: CarouselCell.identifier)
+        tableView.register(CharacterListCell.self, forCellReuseIdentifier: CharacterListCell.identifier)
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -105,32 +106,59 @@ extension HomeViewController: HomeDisplaying {
 
 // MARK: - TableView DataSource.
 extension HomeViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        sections[section].numberOfRows
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch sections[indexPath.row].section {
+        switch sections[indexPath.section].section {
         case .carousel:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: CarouselCell.identifier,
                 for: indexPath
             ) as? CarouselCell,
-                  let characters = sections[indexPath.row].characters else { return UITableViewCell() }
+                  let characters = sections[indexPath.section].characters else { return UITableViewCell() }
             return cell.configure(with: characters)
         case .list:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: CharacterListCell.identifier,
+                for: indexPath
+            ) as? CharacterListCell,
+                  let thumbnail = sections[indexPath.section].characters?[indexPath.row].thumbnail else { return UITableViewCell() }
+            return cell.configure(with: thumbnail)
         }
     }
 }
 
 // MARK: - SkeletonView DataSource.
 extension HomeViewController: SkeletonTableViewDataSource {
-    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numSections(in collectionSkeletonView: UITableView) -> Int {
         2
     }
     
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 5
+        default:
+            return 0
+        }
+    }
+    
     func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
-        CarouselCell.identifier
+        switch indexPath.section {
+        case 0:
+            return CarouselCell.identifier
+        case 1:
+            return CharacterListCell.identifier
+        default:
+            return CharacterListCell.identifier
+        }
     }
 }
