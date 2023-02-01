@@ -8,6 +8,7 @@
 import Foundation
 
 protocol HomeViewModeling: AnyObject {
+    var totalCharacters: Int { get }
     func getCharacters()
     func getMoreCharacters()
 }
@@ -17,8 +18,14 @@ final class HomeViewModel: HomeViewModeling {
     private let service: HomeServicing
     weak var viewController: HomeDisplaying?
     
-    private var limit: Int = 25
+    private var characters = [Character]()
+    private var limit: Int = 50
     private var offset: Int = 0
+    private var hasRequestInProgress: Bool = false
+    
+    var totalCharacters: Int {
+        characters.count
+    }
     
     // MARK: - Initialization(s).
     init(service: HomeServicing) {
@@ -27,28 +34,33 @@ final class HomeViewModel: HomeViewModeling {
     
     // MARK: - Method(s).
     func getCharacters() {
+        guard !hasRequestInProgress else { return }
         performLoading(true)
-        service.getCharacters(limit: self.limit) { [weak self] result in
+        hasRequestInProgress = true
+        service.getCharacters(limit: self.limit, offset: self.offset) { [weak self] result in
             self?.performLoading(false)
             switch result {
             case let .success(model):
-                self?.buildSections(with: model)
+                self?.characters.append(contentsOf: model ?? [])
+                self?.buildSections()
             case let .failure(error):
                 print(error)
             }
         }
+        hasRequestInProgress = false
     }
     
     func getMoreCharacters() {
-        offset += 25
+        guard limit + offset <= characters.count else { return }
+        offset += 50
         getCharacters()
     }
     
-    func buildSections(with model: [Character]?) {
+    func buildSections() {
         var carouselModel = [Character]()
         var listModel = [Character]()
         
-        model?.enumerated().forEach {
+        characters.enumerated().forEach {
             $0.offset < 5 ? carouselModel.append($0.element) : listModel.append($0.element)
         }
         

@@ -12,7 +12,7 @@ final class MarvelAPI {
     static let privateKey = "90bfefb7f2b7bd6902126ff48e9ae120b99b1a9d"
     
     enum Endpoint{
-        case characters(Int)
+        case characters(Int, Int)
         
         static let baseURL = "https://gateway.marvel.com:443/v1/public/characters"
         static let apiKeyParam = "?apikey=\(publicKey)"
@@ -24,8 +24,8 @@ final class MarvelAPI {
         
         var path: String {
             switch self {
-            case .characters(let limit):
-                return Endpoint.baseURL + Endpoint.apiKeyParam + hashParam + "&limit=\(limit)"
+            case let .characters(limit, offset):
+                return Endpoint.baseURL + Endpoint.apiKeyParam + hashParam + "&limit=\(limit)&offset=\(offset)"
             }
         }
     }

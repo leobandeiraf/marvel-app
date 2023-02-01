@@ -22,9 +22,12 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: - Component(s).
+    private lazy var loading = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 44))
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.isSkeletonable = true
         tableView.register(CarouselCell.self, forCellReuseIdentifier: CarouselCell.identifier)
         tableView.register(CharacterListCell.self, forCellReuseIdentifier: CharacterListCell.identifier)
@@ -70,6 +73,11 @@ final class HomeViewController: UIViewController {
         setupConstraints()
         configureView()
     }
+    
+    private func setupLoading() {
+        tableView.tableFooterView = loading
+        tableView.tableFooterView?.isHidden = false
+    }
 }
 
 // MARK: - View Configuration.
@@ -90,6 +98,7 @@ private extension HomeViewController {
     private func configureView() {
         title = "Characters"
         view.backgroundColor = .white
+        tableView.showAnimatedGradientSkeleton()
     }
 }
 
@@ -97,10 +106,11 @@ private extension HomeViewController {
 extension HomeViewController: HomeDisplaying {
     func displayCharacters(with model: [SectionModel]) {
         sections = model
+        tableView.hideSkeleton()
     }
     
     func displayLoading(_ bool: Bool) {
-        bool ? tableView.showAnimatedGradientSkeleton() : tableView.hideSkeleton()
+        bool ? loading.startAnimating() : loading.stopAnimating()
     }
 }
 
@@ -130,6 +140,17 @@ extension HomeViewController: UITableViewDataSource {
             ) as? CharacterListCell,
                   let character = sections[indexPath.section].characters?[indexPath.row] else { return UITableViewCell() }
             return cell.configure(with: character)
+        }
+    }
+}
+
+// MARK: - TableView Delegate.
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let totalItem = viewModel.totalCharacters - 10
+        if indexPath.row > totalItem {
+            setupLoading()
+            viewModel.getMoreCharacters()
         }
     }
 }
