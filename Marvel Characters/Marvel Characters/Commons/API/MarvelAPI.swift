@@ -14,7 +14,7 @@ final class MarvelAPI {
     enum Endpoint{
         case characters(Int, Int)
         
-        static let baseURL = "https://gateway.marvel.com:443/v1/public/characters"
+        static let baseURL = "http://gateway.marvel.com:443/v1/public/characters"
         static let apiKeyParam = "?apikey=\(publicKey)"
         
         var hashParam: String {

@@ -11,6 +11,7 @@ import UIKit
 protocol HomeDisplaying: AnyObject {
     func displayCharacters(with model: [SectionModel])
     func displayLoading(_ bool: Bool)
+    func displayFailure()
 }
 
 final class HomeViewController: UIViewController {
@@ -107,10 +108,18 @@ extension HomeViewController: HomeDisplaying {
     func displayCharacters(with model: [SectionModel]) {
         sections = model
         tableView.hideSkeleton()
+        tableView.backgroundView?.isHidden = true
     }
     
     func displayLoading(_ bool: Bool) {
         bool ? loading.startAnimating() : loading.stopAnimating()
+    }
+    
+    func displayFailure() {
+        let failureView = FailureView()
+        tableView.backgroundView = failureView
+        tableView.backgroundView?.isHidden = false
+        tableView.hideSkeleton()
     }
 }
 

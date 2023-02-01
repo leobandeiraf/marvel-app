@@ -21,7 +21,6 @@ final class HomeViewModel: HomeViewModeling {
     private var characters = [Character]()
     private var limit: Int = 50
     private var offset: Int = 0
-    private var hasRequestInProgress: Bool = false
     
     var totalCharacters: Int {
         characters.count
@@ -34,20 +33,17 @@ final class HomeViewModel: HomeViewModeling {
     
     // MARK: - Method(s).
     func getCharacters() {
-        guard !hasRequestInProgress else { return }
         performLoading(true)
-        hasRequestInProgress = true
         service.getCharacters(limit: self.limit, offset: self.offset) { [weak self] result in
             self?.performLoading(false)
             switch result {
             case let .success(model):
                 self?.characters.append(contentsOf: model ?? [])
                 self?.buildSections()
-            case let .failure(error):
-                print(error)
+            case .failure:
+                self?.viewController?.displayFailure()
             }
         }
-        hasRequestInProgress = false
     }
     
     func getMoreCharacters() {
