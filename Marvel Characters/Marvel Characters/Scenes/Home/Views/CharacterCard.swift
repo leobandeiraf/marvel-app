@@ -30,7 +30,7 @@ final class CharacterCard: UICollectionViewCell {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 28, weight: .bold)
+        label.font = .systemFont(ofSize: 26, weight: .bold)
         label.textColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

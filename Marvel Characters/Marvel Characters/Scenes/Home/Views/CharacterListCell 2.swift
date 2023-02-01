@@ -44,7 +44,7 @@ final class CharacterListCell: UITableViewCell {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 26, weight: .bold)
+        label.font = .systemFont(ofSize: 28, weight: .bold)
         label.isSkeletonable = true
         label.textAlignment = .right
         label.textColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
