@@ -119,6 +119,5 @@ private extension CharacterListCell {
         shadowLayer.shadowOffset = CGSize(width: 54, height: 54)
         
         contentView.layer.insertSublayer(shadowLayer, at: 0)
-        
     }
 }
